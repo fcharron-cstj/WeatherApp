@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <main id="app">
+        <img src="back.jpg" alt="" class="backgroundimage" :class="{'animate': result }">
+        <div class="container">
+            <div class="form">
+                <form v-if="!result" action="" method="post" id="myForm" @submit.prevent="getLocation()">
+                    <h1>City</h1>
+                    <input type="text" name="city" id=""
+                        @input="event => autoCompleteCity(event.target)" list="options" />
+                    <datalist id="options">
+                        <option v-for="item in citysearchresults" :value="item.name">
+                            {{ item }}
+                        </option>
+                    </datalist>
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
+                <div class="display" v-if="location!=null && weather_result!=null" v-cloak>
+                    <h1 style="text-align:center;">Weather</h1>
+                    <img :src="'https://openweathermap.org/img/wn/' + this.weather_result.weather[0].icon + '@2x.png'"
+                        alt="" class="thumbnail">
+                    <h2>{{ location[0].name }} ({{ location[0].country }})</h2>
+                    <p>{{ weather_result.main.temp }} C°</p>
+                    <p>Feels like : {{ weather_result.main.feels_like }} C°</p>
+                    <p>Condition : {{ weather_result.weather[0].description }}</p>
+                    <p>Wind : {{ weather_result.wind.speed }} Km/H  → {{ this.weather_result.wind.deg }}</p>
+                    <p>Sunrise : {{ weather_result.sys.sunrise }}</p>
+                    <p>Sunset : {{ weather_result.sys.sunset }}</p>
+                    <p>Timezone : {{ weather_result.timezone }}</p>
+
+                    <p v-if="weather_result.snow">
+                        Neige : {{ weather_result.snow["1h"] }}mm
+                    </p>
+                    <p v-if="weather_result.rain">
+                        Pluie : {{ weather_result.rain["1h"] }}mm
+                    </p>
+                    <a href="" @click="window.location.reload()" class="button">Return</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="vue.js"></script>
+</body>
+
+</html>
