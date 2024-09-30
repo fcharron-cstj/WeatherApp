@@ -42,10 +42,10 @@
                     <p>Timezone : {{ weather_result.timezone }}</p>
 
                     <p v-if="weather_result.snow">
-                        Neige : {{ weather_result.snow["1h"] }}mm
+                        Snow : {{ weather_result.snow["1h"] }}mm
                     </p>
                     <p v-if="weather_result.rain">
-                        Pluie : {{ weather_result.rain["1h"] }}mm
+                        Rain : {{ weather_result.rain["1h"] }}mm
                     </p>
                     <a href="" @click="window.location.reload()" class="button">Return</a>
                 </div>
